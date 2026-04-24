@@ -1,0 +1,11 @@
+{
+  "templater-obsidian:ObsidianTemplates/Bloque Bash.md": [
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "/"
+    }
+  ],
+  "editor:toggle-comments": []
+}
