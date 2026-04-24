@@ -154,3 +154,108 @@
 	- Cómo se hace: Se "roban" bits a la parte del Host para dárselos a la parte de la Red, cambiando la máscara (ej: pasar de un /24 a un /26).
 ### TIP DE PENTESTING: Si estás en una red con máscara /24 y tu IP es 10.10.10.5, sabes que puedes atacar a cualquier IP entre la 10.10.10.1 y la 10.10.10.254.
 
+# UDP y TCP
+
+-  La Capa 4 se encarga de que los datos lleguen de un proceso en la máquina A a un proceso en la máquina B. Los "mensajes" aquí se llaman Segmentos (en TCP) o Datagramas (en UDP)
+## TCP (Transmission Control Protocol)
+
+-  Es el protocolo orientado a la conexion. Es fiable pero mas lento porque tiene que confirmar que todo llegue bien.
+### El Three-Way Handshake (Apreton de manos)
+
+-  Es vital para entender como funcionan los escaneos de red. Antes de enviar datos, ocurre esto:
+  1. **SYN:** El cliente envia una solicitud de sincronizacion
+  2. **SYN/ACK:** El servidor responde diciendo "vale, te escucho, sincronicemos"\
+  3. **ACK:** El cliente confirma. Conexion establecida
+### Finalizacion de conexion
+
+-  Se usa **FIN** para cerrar ordenadamente
+-  Se usa **RST (Reset)** para cerrar de golpe si hay un error o el puerto esta cerrado
+## UDP (User Datagram Protocol)
+
+
+-  Es el protocolo no orientado a la conexion. Es rapido, dispara y olvida
+	-  **Sin handshake:** No hay confirmacion de que el otro este vio
+	-  **Uso:** DNS, VoIP, Streming de video/audio, Juegos
+	-  **En Hacking:** Es mucho mas dificil de escanear porque si un puerto UDP esta abierto, a veces simplemente no responde nada.
+## Puertos y Sockets
+
+- **Puerto:** Un numero del 0 al 65535 que identifica el servicio
+  - **0 - 1023:** Puertos bien conocidos (SSH: 22. HTTP: 80, HTTPS: 443)
+  - **1024 - 49151:** Puertos registrados
+- **Socket:** La conbinacion de `IP : Puerto` (ej: `192.168.1.1:80`). Es la direccion completa de la "puerta"
+
+## Comandos esenciales
+
+```bash
+# Ver conexiones TCP activas y puertos a la escucha
+ss -tulpn
+
+# Escaneo básico de puertos TCP (Nmap usa SYN por defecto)
+nmap -sT <IP_OBJETIVO>
+
+# Escaneo de puertos UDP (Mucho más lento)
+nmap -sU <IP_OBJETIVO>
+```
+
+# Encapsulacion de Datos (Data Encapsulation)
+
+- La encapsulacion es el proceso donde cada capa del modelo OSI añade su propia informacion de control (llamada Header o Cabecera) a los datos que recibe de la capa superior
+## El viaje de los Datos (PDU)
+
+- A cada "paquete" de informacion se le llama de forma distitna segun la capa en que se escuentre. A esto se le conoce como **PDU** (Protocol Data Unit)
+  - **Capas 7,6 y 5 (Aplicacion/Presentacion/Sesion):** Se llaman simplemente **Data** (Datos)
+  - **Capa 4 (Transporte):** Se llama **Segmento** (TCP) o **Datagrama** (UDP). Aqui se añade el puerto de origen y destino
+  - **Capa 3 (Red):** Se llama **Paquete** (Packet). Aqui se añade la IP de origen y destino
+  - **Capa 2 (Enlace de Datos):** Se llama **Trama** (Frame). Aqui se añade la MAC de origen y destino
+  - **Capa 1 (Fisica):** Se llaman **Bits** (0s y 1s viajando por el cable o aire)
+    
+## El Proceso Paso a Paso
+
+### Encapsulación (Bajando: Del usuario al cable)
+
+ - Imagina que envías un mensaje de WhatsApp:
+	- **Aplicación:** Se crean los datos del mensaje.
+	- **Transporte:** Se le pone una "etiqueta" con el **Puerto** (Capa 4).
+	- **Red:** Se mete en un "sobre" con la **IP** (Capa 3).
+	- **Enlace:** Se mete en una "caja" con la **MAC** (Capa 2).
+	- **Física:** Se convierte en electricidad o luz y se envía.
+### Desencapsulación (Subiendo: Del cable al receptor)
+
+- Cuando el servidor recibe los bits, hace el proceso inverso: va "pelando la cebolla", quitando las cabeceras (MAC, luego IP, luego Puerto) hasta que solo quedan los Datos originales.
+  
+```bash
+### 🌐 Encapsulación y PDUs (Modelo OSI)
+
+[ CAPA 7+6+5: Application ] -> [ DATOS ] (Data)
+                                     ↓
+[ CAPA 4: Transport ]       -> [ Puerto ][ DATOS ] (Segmento / Segment)
+                                     ↓
+[ CAPA 3: Network ]         -> [ IP ][ Puerto ][ DATOS ] (Paquete / Packet)
+                                     ↓
+[ CAPA 2: Data Link ]       -> [ MAC ][ IP ][ Puerto ][ DATOS ][ Trailer ] (Trama / Frame)
+                                     ↓
+[ CAPA 1: Physical ]        -> 10110100101101... (Bits)
+
+
+```
+
+# Telet
+
+- Telnet es un protocolo antiguo para manejar máquinas en remoto por consola. Fue sustituido por **SSH**.
+## El gran problema: Cero cifrado
+
+- **Todo viaja en texto plano:** Si alguien esta escuchando en la red (con Wireshark, por ejemplo) puede ver tu **usuario** y **contraseña** tal cual, sin cifrar
+  
+## Uso practico (Hacking/Admin)
+
+- Hoy en dia no se usa para "entrar" en las maquinas, sino para comprobar si un puerto esta abierto de forma manual.
+```bash
+# Conectarse a una máquina por Telnet (Puerto 23 por defecto)
+telnet <IP_OBJETIVO>
+
+# Probar si un puerto específico está abierto (Muy útil)
+# Sintaxis: telnet [IP] [PUERTO]
+telnet 192.168.1.1 80
+```
+
+`NUNCA usar en redes reales, si en un examen preguntan por que Telnet es inseguro, la respuesta es siempre: "Porque no cifra la comunicacion (texto plano)`

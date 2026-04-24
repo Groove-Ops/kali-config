@@ -4,39 +4,20 @@
     "type": "split",
     "children": [
       {
-        "id": "417ab4fc073229b1",
+        "id": "53fd60d56b58a076",
         "type": "tabs",
         "children": [
           {
-            "id": "46027787fe553775",
+            "id": "65b022cc26f3cdbb",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "BINARIO.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "BINARIO"
-            }
-          },
-          {
-            "id": "a0f462629a1d969c",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "REDES_THM.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "REDES_THM"
+              "title": "New tab"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -110,7 +91,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "REDES_THM.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -120,7 +100,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for REDES_THM"
+              "title": "Backlinks"
             }
           },
           {
@@ -129,12 +109,11 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "REDES_THM.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from REDES_THM"
+              "title": "Outgoing links"
             }
           },
           {
@@ -172,13 +151,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "REDES_THM.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of REDES_THM"
+              "title": "Outline"
             }
           }
         ]
@@ -200,10 +178,10 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "a0f462629a1d969c",
+  "active": "65b022cc26f3cdbb",
   "lastOpenFiles": [
-    "BINARIO.md",
     "REDES_THM.md",
+    "BINARIO.md",
     "2026-04-24.md",
     "ObsidianTemplates/Bloque Bash.md",
     "ObsidianTemplates",
