@@ -1,0 +1,12 @@
+/* MODO EDICIÓN: Ancho total para escribir comandos de Kali sin cortes */
+.markdown-source-view.mod-cm6 .cm-content {
+    max-width: 100% !important;
+}
+
+/* MODO LECTURA: Solo aquí se centra el texto para estudiar mejor */
+.markdown-rendered.markdown-preview-view {
+    max-width: 1300px !important; /* Ancho tipo libro */
+    margin-left: auto !important; 
+    margin-right: auto !important;
+    padding: 50px !important;
+}

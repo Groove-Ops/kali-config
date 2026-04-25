@@ -1,6 +1,9 @@
 {
   "baseFontSize": 20,
   "baseFontSizeAction": false,
-  "cssTheme": "Notation 2",
-  "theme": "system"
+  "cssTheme": "Minimal",
+  "theme": "system",
+  "enabledCssSnippets": [
+    "modo_lectura"
+  ]
 }

@@ -8,13 +8,17 @@
         "type": "tabs",
         "children": [
           {
-            "id": "65b022cc26f3cdbb",
+            "id": "fb44fed440cf57c0",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "REDES_THM.md",
+                "mode": "preview",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "REDES_THM"
             }
           }
         ]
@@ -91,6 +95,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "REDES_THM.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -100,7 +105,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks"
+              "title": "Backlinks for REDES_THM"
             }
           },
           {
@@ -175,11 +180,16 @@
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
       "bases:Create new base": false,
-      "templater-obsidian:Templater": false
+      "templater-obsidian:Templater": false,
+      "pdf-plus:PDF++: Toggle auto-copy": false,
+      "pdf-plus:PDF++: Toggle auto-focus": false,
+      "pdf-plus:PDF++: Toggle auto-paste": false
     }
   },
-  "active": "65b022cc26f3cdbb",
+  "active": "fb44fed440cf57c0",
   "lastOpenFiles": [
+    "Untitled.canvas",
+    "Untitled.md",
     "REDES_THM.md",
     "BINARIO.md",
     "2026-04-24.md",
