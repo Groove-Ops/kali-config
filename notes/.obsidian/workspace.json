@@ -4,24 +4,39 @@
     "type": "split",
     "children": [
       {
-        "id": "53fd60d56b58a076",
+        "id": "c019f681b8d56a9a",
         "type": "tabs",
         "children": [
           {
-            "id": "6db06fbb72764ecf",
+            "id": "25c0e1f68430c5de",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Redes/How Websites Works_THM.md",
+                "file": "Redes/Networking Essentials_THM.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "How Websites Works_THM"
+              "title": "Networking Essentials_THM"
+            }
+          },
+          {
+            "id": "8f782afe2f915844",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Redes/Networking Core Protocols_THM.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Networking Core Protocols_THM"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -53,7 +68,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:#Capa",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -185,10 +200,11 @@
       "pdf-plus:PDF++: Toggle auto-paste": false
     }
   },
-  "active": "6db06fbb72764ecf",
+  "active": "8f782afe2f915844",
   "lastOpenFiles": [
     "Redes/Networking Concepts_THM.md",
     "Redes/Networking Essentials_THM.md",
+    "Redes/Networking Core Protocols_THM.md",
     "Redes/How Websites Works_THM.md",
     "Shells/Windows Command Line (CMD)_THM.md",
     "Shells/Powershell_THM.md",
@@ -201,7 +217,6 @@
     "Untitled.canvas",
     "REDES FUNDAMENTALS_THM.md",
     "Redes",
-    "Untitled.md",
     "ObsidianTemplates/Bloque Bash.md",
     "ObsidianTemplates"
   ]

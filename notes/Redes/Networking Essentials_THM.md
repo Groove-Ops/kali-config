@@ -152,7 +152,7 @@ Es el proceso de seleccionar el mejor camino para enviar paquetes a través de d
 
 ## 2. El "Cerebro" del Router: La Tabla de Enrutamiento
 
-Cada router tiene una **Routing Table**. Es una base de datos que le dice: "Si el paquete va a la Red X, envíalo por la Salida Y". 
+	Cada router tiene una **Routing Table**. Es una base de datos que le dice: "Si el paquete va a la Red X, envíalo por la Salida Y". 
 
 Contiene 3 elementos clave:
 
@@ -202,3 +202,103 @@ Al realizar un `tracert google.com`, se observan los siguientes niveles de enrut
 3. **Salto Final (Destino):** Red de Google (`1e100.net`).
 
 **Dato técnico:** Cada salto incrementa ligeramente la latencia (ms). Si un salto muestra `* * *`, significa que ese router tiene el ICMP bloqueado por seguridad (es "tímido").
+
+## Protocolos de Enrutamiento (Routing)
+
+El routing es el proceso por el cual los routers intercambian información para decidir el mejor camino para los paquetes. Se dividen según su **algoritmo** y su **alcance**.
+
+---
+
+## 📊 Tabla Comparativa de Protocolos
+
+| Protocolo | Algoritmo | Métrica Principal | Ámbito de Uso |
+| :--- | :--- | :--- | :--- |
+| **RIP** | Vector de Distancia | **Saltos (Hops)** | Redes pequeñas/antiguas |
+| **OSPF** | Estado de Enlace | **Costo (Ancho de banda)** | Redes corporativas (Interno) |
+| **EIGRP** | Híbrido (Cisco) | **Mix (Bandwidth/Delay)** | Redes Cisco (Interno) |
+| **BGP** | Vector de Ruta | **Políticas y AS Path** | Internet Global (Eterno) |
+
+---
+
+## 🕵️ Detalles Técnicos por Protocolo
+
+### 1. RIP (Routing Information Protocol)
+
+* **Lógica:** "El camino más corto en distancia".
+* **Funcionamiento:** Envía su tabla completa a los vecinos cada 30s.
+* **Límite:** Máximo 15 saltos. El salto 16 se considera red inalcanzable.
+* **Punto débil:** No entiende de velocidad. Elegirá un enlace de 1Mbps sobre uno de 1Gbps si el de 1Mbps tiene un router menos en medio.
+
+### 2. OSPF (Open Shortest Path First)
+
+* **Lógica:** "El camino más rápido (menor costo)".
+* **Funcionamiento:** Crea un **Mapa de Topología** completo de la red. Todos los routers ven lo mismo.
+* **Costo:** Se calcula dividiendo una referencia (100Mbps) por el ancho de banda del enlace.
+* **Algoritmo:** Usa **Dijkstra** para calcular el camino más corto en el mapa.
+* **Estructura:** Organizado por **Áreas** (Area 0 es el Backbone).
+
+### 3. EIGRP (Enhanced Interior Gateway Routing Protocol)
+
+* **Lógica:** Optimización total de recursos.
+* **Propiedad:** Originalmente de **Cisco**.
+* **Funcionamiento:** Solo envía actualizaciones cuando hay cambios (ahorra ancho de banda).
+* **Métrica:** Usa una fórmula compleja que incluye Ancho de banda, Retardo (Delay), Carga y Fiabilidad.
+
+### 4. BGP (Border Gateway Protocol)
+
+* **Lógica:** "El pegamento de Internet".
+* **Funcionamiento:** Conecta **Sistemas Autónomos (AS)**. Un AS es una red gigante (Google, Telefónica, Amazon).
+* **Decisión:** No basa la ruta solo en velocidad, sino en acuerdos comerciales y políticas de seguridad entre países/ISPs.
+* **Seguridad:** Es vulnerable al **BGP Hijacking** (anunciar rutas falsas para desviar el tráfico de internet).
+
+---
+
+## 🛡️ Notas para Ciberseguridad
+
+* **IGP (Interior Gateway Protocols):** RIP, OSPF y EIGRP. Se usan **DENTRO** de una red (tu empresa).
+* **EGP (Exterior Gateway Protocols):** BGP. Se usa para conectar redes **ENTRE** sí a través de Internet.
+* **Convergencia:** Es el tiempo que tardan los routers en actualizarse tras un fallo. OSPF es mucho más rápido que RIP.
+
+# 🛡️NAT (Network Address Translation)
+### **Capa:** 3 (Red) / 4 (Transporte) | **Uso:** Ahorro de IPs y Seguridad básica.
+
+## 1. ¿Por qué existe el NAT?
+	
+	El protocolo IPv4 solo permite unos **4.300 millones** de direcciones. Como hay miles de millones de personas con móviles, PCs y neveras inteligentes, las IPs se agotaron. 
+
+-  **La solución:** Usar una sola IP Pública para toda una casa/empresa y repartir IPs Privadas dentro. El NAT es el encargado de traducir unas por otras.
+
+## 2. IPs Públicas vs. Privadas
+
+* **IP Pública:** Es tu "DNI" en Internet. Es única en todo el mundo. La asigna tu ISP (Movistar, Orange, etc.).
+* **IP Privada:** Es tu "nombre" dentro de casa (ej. `192.168.1.15`). Solo funciona dentro de tu red local. Internet no sabe que estas IPs existen.
+
+## 3. Tipos de NAT 
+
+| Tipo                               | Descripción                                                                                              | Uso típico                              |
+| :--------------------------------- | :------------------------------------------------------------------------------------------------------- | :-------------------------------------- |
+| **Static NAT (1:1)**               | Una IP privada se mapea siempre a una IP pública específica.                                             | Servidores web o de correo en empresas. |
+| **Dynamic NAT**                    | Un grupo de IPs privadas usa un "pool" (varias) de IPs públicas según disponibilidad.                    | Redes empresariales grandes.            |
+| **PAT (Port Address Translation)** | **El más común.** Miles de IPs privadas usan **UNA sola IP pública**, diferenciándose por el **Puerto**. | Tu casa y la mayoría de redes WiFi.     |
+|                                    |                                                                                                          |                                         |
+
+## 4. ¿Cómo funciona el PAT (NAT por puertos)?
+
+- Cuando tu PC (`192.168.1.10`) quiere entrar en Google:
+	1. El paquete llega al router. El router mira la IP privada y dice: *"Internet no acepta esto"*.
+	2. El router **cambia** la IP privada por su propia **IP Pública**.
+	3. Para no olvidarse de quién pidió qué, el router asigna un **Puerto de origen único** (ej. 50001).
+	4. El router anota en su **NAT Table**: *"El paquete que vuelva por el puerto 50001 es para el PC 192.168.1.10"*.
+
+
+
+## 5. Concepto Clave: Port Forwarding (Reenvío de puertos)
+
+	Como el NAT bloquea las conexiones que vienen de fuera (porque el router no sabe a quién dárselas si nadie las pidió antes), necesitamos el Port Forwarding.
+
+* **Uso:** Si quieres montar un servidor de Minecraft o una cámara de seguridad y acceder desde la calle, le dices al router: *"Todo lo que llegue por el puerto 25565, dáselo directamente a la IP de mi PC"*.
+
+## 6. Ventajas de Seguridad
+
+* **Ocultación:** Los atacantes externos no pueden ver la IP real de tu PC, solo ven la del router.
+* **Barrera natural:** Funciona como un firewall básico, ya que descarta cualquier paquete entrante que no haya sido solicitado previamente por alguien de dentro.
