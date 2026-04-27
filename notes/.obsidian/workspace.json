@@ -13,15 +13,58 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "REDES_THM.md",
+                "file": "Redes/Networking Concepts_THM.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "REDES_THM"
+              "title": "Networking Concepts_THM"
+            }
+          },
+          {
+            "id": "d16f04e62be40975",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Redes/Networking Concepts_THM.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Networking Concepts_THM"
+            }
+          },
+          {
+            "id": "1bf7542041367d91",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Redes/Networking Concepts_THM.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Networking Concepts_THM"
+            }
+          },
+          {
+            "id": "6db06fbb72764ecf",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Redes/Networking Essentials_THM.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Networking Essentials_THM"
             }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -78,8 +121,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 233.5,
-    "collapsed": true
+    "width": 233.5
   },
   "right": {
     "id": "dad11ef46789d135",
@@ -186,12 +228,17 @@
       "pdf-plus:PDF++: Toggle auto-paste": false
     }
   },
-  "active": "fb44fed440cf57c0",
+  "active": "6db06fbb72764ecf",
   "lastOpenFiles": [
+    "Redes/Networking Concepts_THM.md",
+    "BINARIO.md",
+    "Redes/Networking Essentials_THM.md",
+    "Redes",
+    "REDES FUNDAMENTALS_THM.md",
+    "REDES.md",
+    "HOW WEBSITES WORK_THM.md",
     "Untitled.canvas",
     "Untitled.md",
-    "REDES_THM.md",
-    "BINARIO.md",
     "2026-04-24.md",
     "ObsidianTemplates/Bloque Bash.md",
     "ObsidianTemplates",

@@ -56,6 +56,14 @@
   
 		Ejemplo: 2001:0db8:85a3:0000:0000:8a2e:0370:7334
 
+IP: 192 . 168 . 1 . 15
+    |     |     |    |
+    |     |     |    +--- Octeto 4 (8 bits)
+    |     |     +-------- Octeto 3 (8 bits)
+    |     +-------------- Octeto 2 (8 bits)
+    +-------------------- Octeto 1 (8 bits)
+
+TOTAL: 4 Octetos x 8 bits = 32 bits.
 # 🔠 HEXADECIMAL (IPv6)
 
 - Se usa porque el decimal normal no llega para 128 bits.
