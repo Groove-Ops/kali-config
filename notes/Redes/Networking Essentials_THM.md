@@ -142,3 +142,63 @@ Para evitar que un paquete esté dando vueltas por internet para siempre si hay 
 * **Visibilidad:** Baja. Es un protocolo de "background" (segundo plano).
 * **Diferencia clave:** * El usuario normal usa **TCP/UDP** para "hablar" con apps.
     * Los routers y admins usan **ICMP** para "hablar" con la infraestructura.
+
+# 🛣️Routing (Enrutamiento)
+### **Capa:** 3 (Red) | **Dispositivo clave:** Router
+
+## 1. ¿Qué es el Routing?
+
+Es el proceso de seleccionar el mejor camino para enviar paquetes a través de diferentes redes. Si el Switch es el portero de tu edificio (red local), el **Router** es el cartero que sabe cómo llegar a otras ciudades.
+
+## 2. El "Cerebro" del Router: La Tabla de Enrutamiento
+
+Cada router tiene una **Routing Table**. Es una base de datos que le dice: "Si el paquete va a la Red X, envíalo por la Salida Y". 
+
+Contiene 3 elementos clave:
+
+* **Destination Network:** La red a la que quieres llegar.
+* **Next Hop (Siguiente Salto):** La IP del siguiente router en el camino.
+* **Interface:** Por qué cable físico (puerto) debe salir el paquete.
+  
+## 3. Tipos de Rutas
+
+* **Directly Connected:** Redes que están enchufadas físicamente al router. No necesita preguntar a nadie, sabe que están ahí.
+* **Static Routes (Rutas Estáticas):** El administrador las escribe a mano. *"Para ir a la oficina B, vete por aquí"*. Son seguras pero no cambian si un cable se rompe.
+* **Dynamic Routes (Rutas Dinámicas):** Los routers "hablan" entre ellos mediante protocolos (como OSPF o BGP) para aprender los caminos automáticamente. Si un camino se corta, ellos solos buscan una alternativa.
+* **Default Route (Ruta por defecto):** La "ruta del último recurso". Si el router no encuentra el destino en su tabla, envía el paquete aquí (normalmente hacia tu proveedor de Internet/ISP). Se representa como `0.0.0.0/0`.
+
+## 4. El Proceso de Decisión (Paso a paso)
+
+1. Llega un paquete al Router.
+2. El Router mira la **IP de Destino**.
+3. Busca en su **Routing Table** la coincidencia más específica.
+4. Si la encuentra, lo reenvía al **Next Hop**.
+5. Si NO la encuentra, lo envía por la **Default Route**.
+6. Si no hay Default Route, descarta el paquete y envía un **ICMP Destination Unreachable**.
+
+## 5. Ciberseguridad: Riesgos en Routing
+
+* **Route Poisoning:** Un atacante engaña a los routers para que crean que un camino es mejor que otro, desviando el tráfico hacia su propia máquina.
+* **Puertas de enlace maliciosas:** Si logras que un PC use tu IP como "Default Gateway" (mediante ARP Spoofing), te conviertes en el router de esa víctima y ves todo su tráfico.
+
+
+## 🌐 El Viaje de un Paquete (End-to-End Routing)
+
+El routing no es un solo paso, es una carrera de relevos:
+
+1. **Host Routing:** Tu PC decide si el destino es local o remoto. Si es remoto, lo envía al **Default Gateway**.
+2. **Edge Routing:** Tu router de casa decide enviarlo a la red de tu proveedor (ISP).
+3. **Core Routing:** Los routers de internet (BGP) mueven el paquete entre países y continentes basándose en las mejores rutas posibles.
+
+**Concepto Clave: Hop (Salto)**
+Cada vez que un paquete pasa por un router, se considera un "salto". Puedes ver todos los saltos de tu conexión actual usando:
+* `tracert google.com` (Windows)
+* `traceroute google.com` (Linux)
+
+### 🔬 Caso de estudio: Traceroute a Google
+Al realizar un `tracert google.com`, se observan los siguientes niveles de enrutamiento:
+1. **Salto 1 (Gateway Local):** `mygpon.ip` -> Mi router doméstico.
+2. **Saltos 2-8 (ISP Core):** Routers de mi proveedor de internet moviendo el paquete por su red nacional.
+3. **Salto Final (Destino):** Red de Google (`1e100.net`).
+
+**Dato técnico:** Cada salto incrementa ligeramente la latencia (ms). Si un salto muestra `* * *`, significa que ese router tiene el ICMP bloqueado por seguridad (es "tímido").

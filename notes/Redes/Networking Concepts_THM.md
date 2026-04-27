@@ -1,5 +1,4 @@
 
-
 # El modelo OSI (Las 7 capas)
 
 1. Physical Layer

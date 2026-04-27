@@ -50,7 +50,7 @@
   - 4 grupos de 8 bits.
   
 		Ejemplo: 192.168.1.1
-## **IPv6**: Versión 6. (128 bits)
+### **IPv6**: Versión 6. (128 bits)
 
   - 8 grupos de 16 bits.
   

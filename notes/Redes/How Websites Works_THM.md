@@ -1,5 +1,4 @@
 
-
 # Estructura HTML5
 ## 1. El Esqueleto (Documento Raíz)
 * `<!DOCTYPE html>`: Declaración obligatoria. Indica que el archivo usa **HTML5**.
